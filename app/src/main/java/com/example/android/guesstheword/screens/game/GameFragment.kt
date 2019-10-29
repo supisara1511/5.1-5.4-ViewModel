@@ -54,20 +54,17 @@ class GameFragment : Fragment() {
 
         Log.i("GameFragment", "Called ViewModelProviders.of")
         viewModel = ViewModelProviders.of(this).get(GameViewModel::class.java)
+        binding.gameViewModel = viewModel
+        binding.lifecycleOwner = this
+
+
         viewModel.resetList()
         viewModel.nextWord()
 
-        binding.correctButton.setOnClickListener { onCorrect() }
-        binding.skipButton.setOnClickListener { onSkip() }
-        binding.endGameButton.setOnClickListener { onEndGame() }
 
-        viewModel.score.observe(this, Observer { newScore ->
-            binding.scoreText.text = newScore.toString()
-        })
 
-        viewModel.word.observe(this, Observer { newWord ->
-            binding.wordText.text = newWord
-        })
+
+
 
         viewModel.eventGameFinish.observe(this, Observer<Boolean> { hasFinished ->
             if (hasFinished) gameFinished()
@@ -80,34 +77,6 @@ class GameFragment : Fragment() {
 
     }
 
-    private fun onSkip() {
-        viewModel.onSkip()
-//        updateScoreText()
-//        updateWordText()
-    }
-
-    private fun onCorrect() {
-       viewModel.onCorrect()
-//        updateScoreText()
-//        updateWordText()
-    }
-
-//
-//    private fun updateWordText() {
-//        binding.wordText.text = viewModel.word.value
-//    }
-//
-//    private fun updateScoreText() {
-//        binding.scoreText.text = viewModel.score.value.toString()
-//    }
-
-
-
-
-
-    private fun onEndGame() {
-        gameFinished()
-    }
 
 
     private fun gameFinished() {
