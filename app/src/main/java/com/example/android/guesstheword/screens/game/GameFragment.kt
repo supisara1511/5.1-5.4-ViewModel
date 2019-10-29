@@ -61,11 +61,6 @@ class GameFragment : Fragment() {
         viewModel.resetList()
         viewModel.nextWord()
 
-
-
-
-
-
         viewModel.eventGameFinish.observe(this, Observer<Boolean> { hasFinished ->
             if (hasFinished) gameFinished()
         })
